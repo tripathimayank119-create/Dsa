@@ -1,0 +1,902 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSA Experiments – Java Codes</title><style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mu:#5b6573;--ac:#3b5bdb;--bd:#dde1e7;--code:#f0f2f5;--mk:#ffe066}
+@media(prefers-color-scheme:dark){:root{--bg:#14161a;--card:#1d2026;--tx:#e6e8eb;--mu:#98a1ae;--ac:#8ea2ff;--bd:#2d323b;--code:#12141a;--mk:#8a6d00}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,sans-serif}
+header{position:sticky;top:0;background:var(--bg);padding:12px 16px;border-bottom:1px solid var(--bd);z-index:5}
+h1{font-size:1.15rem;margin:0 0 8px}
+#q{width:100%;padding:10px 12px;font-size:1rem;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx)}
+#info{color:var(--mu);font-size:.85rem;margin:6px 0}
+#toc{display:flex;flex-wrap:wrap;gap:6px}#toc a{padding:2px 9px;border:1px solid var(--bd);border-radius:12px;color:var(--ac);text-decoration:none;font-size:.85rem}
+#toc a.off{opacity:.25}
+main{max-width:900px;margin:0 auto;padding:12px 16px 60px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:4px 16px 14px;margin:14px 0;scroll-margin-top:150px}
+h2{color:var(--ac);font-size:1.2rem}h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mu);margin:16px 0 4px}
+p{margin:0}pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto;margin:0;font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;white-space:pre}
+.out{border-left:3px solid var(--ac)}.cp{float:right;font-size:.75rem;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:6px;padding:2px 10px}
+mark{background:var(--mk);color:inherit;border-radius:2px}#none{display:none;text-align:center;color:var(--mu);padding:40px}
+</style></head><body><header><h1>DSA Scenario-Based Experiments (Java)</h1>
+<input id="q" type="search" placeholder="Search keywords: stack, merge sort, O(n log n), BFS…" autofocus>
+<div id="info"></div><div id="toc"><a href="#e1" data-n="1">1</a><a href="#e2" data-n="2">2</a><a href="#e3" data-n="3">3</a><a href="#e4" data-n="4">4</a><a href="#e5" data-n="5">5</a><a href="#e6" data-n="6">6</a><a href="#e7" data-n="7">7</a><a href="#e8" data-n="8">8</a><a href="#e9" data-n="9">9</a><a href="#e10" data-n="10">10</a><a href="#e11" data-n="11">11</a><a href="#e12" data-n="12">12</a><a href="#e13" data-n="13">13</a><a href="#e14" data-n="14">14</a><a href="#e15" data-n="15">15</a><a href="#e16" data-n="16">16</a><a href="#e17" data-n="17">17</a><a href="#e18" data-n="18">18</a><a href="#e19" data-n="19">19</a><a href="#e20" data-n="20">20</a></div></header><main><section class="card" id="e1">
+<h2>Experiment 1</h2>
+<h3>Aim</h3><p class="hl">Perform insertion, deletion, traversal and search operations on 1D arrays.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to manage the daily temperature readings of a city using a 1D array. Implement insertion at a given position, deletion of a reading, linear search for a specific temperature, and traversal of all readings.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the array before and after each operation and analyze the time complexity of insertion, deletion, search and traversal.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp1 {
+static int[] a = new int[10];
+static int n = 5;
+static void show(String s) { System.out.println(s + Arrays.toString(Arrays.copyOf(a, n))); }
+public static void main(String[] args) {
+int[] t = {30, 32, 35, 31, 29};
+System.arraycopy(t, 0, a, 0, 5);
+show(&quot;Original
+: &quot;);
+int pos = 2;
+// insert 40 at index 2
+for (int i = n; i &gt; pos; i--) a[i] = a[i - 1];
+a[pos] = 40; n++;
+show(&quot;After insert : &quot;);
+pos = 1;
+// delete index 1
+for (int i = pos; i &lt; n - 1; i++) a[i] = a[i + 1];
+n--;
+show(&quot;After delete : &quot;);
+int idx = -1;
+for (int i = 0; i &lt; n; i++) if (a[i] == 35) { idx = i; break; }
+System.out.println(&quot;Search 35 at index: &quot; + idx);
+System.out.print(&quot;Traversal: &quot;);
+for (int i = 0; i &lt; n; i++) System.out.print(a[i] + &quot; &quot;);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Original
+: [30, 32, 35, 31, 29]
+After insert : [30, 32, 40, 35, 31, 29]
+After delete : [30, 40, 35, 31, 29]
+Search 35 at index: 2
+Traversal: 30 40 35 31 29</pre>
+<h3>Analysis</h3><p class="hl ana">Insertion O(n), Deletion O(n) (elements shift), Linear Search O(n), Traversal O(n). Access by index is O(1).</p>
+</section><section class="card" id="e2">
+<h2>Experiment 2</h2>
+<h3>Aim</h3><p class="hl">Perform insertion, deletion, traversal and search operations on 2D arrays for tabular data representation.</p>
+<h3>Part A (Question)</h3><p class="hl">Develop a Java program to store the monthly sales of products (rows) across different months (columns) in a 2D array. Implement insertion of a new product row, deletion of a product row, row-wise and column-wise traversal, and searching for a given sales value.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the 2D array before and after each operation along with the position (row, column) of the searched value, and discuss the advantages of 2D arrays for tabular data.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp2 {
+static int[][] s = {{10, 20, 30}, {40, 50, 60}, {70, 80, 90}};
+static void show(String m) {
+System.out.println(m);
+for (int[] r : s) System.out.println(Arrays.toString(r));
+}
+public static void main(String[] args) {
+show(&quot;Original:&quot;);
+int[][] t = Arrays.copyOf(s, s.length + 1);
+// insert new product row
+t[s.length] = new int[]{15, 25, 35};
+s = t;
+show(&quot;After inserting row:&quot;);
+int d = 1;
+// delete row 1
+int[][] u = new int[s.length - 1][];
+for (int i = 0, k = 0; i &lt; s.length; i++) if (i != d) u[k++] = s[i];
+s = u;
+show(&quot;After deleting row 1:&quot;);
+System.out.println(&quot;Row-wise sums:&quot;);
+for (int[] r : s) System.out.println(Arrays.stream(r).sum());
+System.out.println(&quot;Column-wise sums:&quot;);
+for (int j = 0; j &lt; s[0].length; j++) {
+int c = 0;
+for (int[] r : s) c += r[j];
+System.out.println(c);
+}
+for (int i = 0; i &lt; s.length; i++)
+for (int j = 0; j &lt; s[i].length; j++)
+if (s[i][j] == 80) System.out.println(&quot;80 found at (&quot; + i + &quot;,&quot; + j + &quot;)&quot;);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Original:
+[10, 20, 30]
+[40, 50, 60]
+[70, 80, 90]
+After inserting row:
+[10, 20, 30]
+[40, 50, 60]
+[70, 80, 90]
+[15, 25, 35]
+After deleting row 1:
+[10, 20, 30]
+[70, 80, 90]
+[15, 25, 35]
+Row-wise sums:
+60
+240
+75
+Column-wise sums:
+95
+125
+155
+80 found at (1,1)</pre>
+<h3>Analysis</h3><p class="hl ana">2D arrays give direct access a[row][col] in O(1) and map naturally to tables (rows = products, columns = months).</p>
+</section><section class="card" id="e3">
+<h2>Experiment 3</h2>
+<h3>Aim</h3><p class="hl">Implement Stack operations using arrays.</p>
+<h3>Part A (Question)</h3><p class="hl">Design a Java program to simulate the back-button history of a web browser using an array-based Stack. Implement push, pop, peek, isEmpty and isFull operations and handle stack overflow and underflow conditions.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the stack contents after each operation and explain the LIFO principle along with overflow and underflow situations.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">public class Exp3 {
+static String[] st = new String[3];
+static int top = -1;
+static boolean isEmpty() { return top == -1; }
+static boolean isFull() { return top == st.length - 1; }
+static void push(String p) {
+if (isFull()) System.out.println(&quot;Overflow! Cannot visit &quot; + p);
+else st[++top] = p;
+}
+static String pop() {
+if (isEmpty()) { System.out.println(&quot;Underflow! No history&quot;); return null; }
+return st[top--];
+}
+static String peek() { return isEmpty() ? null : st[top]; }
+static void show() {
+System.out.print(&quot;Stack: &quot;);
+for (int i = 0; i &lt;= top; i++) System.out.print(st[i] + &quot; &quot;);
+System.out.println();
+}
+public static void main(String[] args) {
+push(&quot;google.com&quot;); show();
+push(&quot;youtube.com&quot;); show();
+push(&quot;gmail.com&quot;); show();
+push(&quot;github.com&quot;);
+// overflow
+System.out.println(&quot;Current page: &quot; + peek());
+System.out.println(&quot;Back from: &quot; + pop()); show();
+pop(); pop(); pop();
+// last pop -&gt; underflow
+System.out.println(&quot;isEmpty: &quot; + isEmpty());
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Stack: google.com
+Stack: google.com youtube.com
+Stack: google.com youtube.com gmail.com
+Overflow! Cannot visit github.com
+Current page: gmail.com
+Back from: gmail.com
+Stack: google.com youtube.com
+Underflow! No history
+isEmpty: true</pre>
+<h3>Analysis</h3><p class="hl ana">LIFO: last pushed = first popped. Overflow = push on full stack; Underflow = pop on empty stack.</p>
+</section><section class="card" id="e4">
+<h2>Experiment 4</h2>
+<h3>Aim</h3><p class="hl">Implement Queue operations using arrays.</p>
+<h3>Part A (Question)</h3><p class="hl">Develop a Java program to simulate a printer job queue using an array-based Queue. Implement enqueue, dequeue, front, isEmpty and isFull operations for incoming print jobs.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the queue status before and after each operation, explain the FIFO principle, and discuss the wasted-space limitation of a linear queue.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">public class Exp4 {
+static String[] q = new String[3];
+static int front = 0, rear = -1;
+static boolean isEmpty() { return rear &lt; front; }
+static boolean isFull() { return rear == q.length - 1; }
+static void enqueue(String j) {
+if (isFull()) System.out.println(&quot;Queue Full! &quot; + j + &quot; rejected&quot;);
+else q[++rear] = j;
+}
+static String dequeue() {
+if (isEmpty()) { System.out.println(&quot;Queue Empty!&quot;); return null; }
+return q[front++];
+}
+static void show() {
+System.out.print(&quot;Queue: &quot;);
+for (int i = front; i &lt;= rear; i++) System.out.print(q[i] + &quot; &quot;);
+System.out.println();
+}
+public static void main(String[] args) {
+enqueue(&quot;Job1&quot;); enqueue(&quot;Job2&quot;); enqueue(&quot;Job3&quot;); show();
+enqueue(&quot;Job4&quot;);
+// full
+System.out.println(&quot;Front: &quot; + q[front]);
+System.out.println(&quot;Printing: &quot; + dequeue()); show();
+enqueue(&quot;Job5&quot;);
+// still full: freed slot at index 0 is wasted
+dequeue(); dequeue(); dequeue();
+// last one -&gt; empty
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Queue: Job1 Job2 Job3
+Queue Full! Job4 rejected
+Front: Job1
+Printing: Job1
+Queue: Job2 Job3
+Queue Full! Job5 rejected
+Queue Empty!</pre>
+<h3>Analysis</h3><p class="hl ana">FIFO: first job in = first job out. In a linear queue, slots before &#x27;front&#x27; are never reused, so space is wasted (fix: circular queue).</p>
+</section><section class="card" id="e5">
+<h2>Experiment 5</h2>
+<h3>Aim</h3><p class="hl">Implement Singly Linked List operations.</p>
+<h3>Part A (Question)</h3><p class="hl">Create a Java program to maintain a list of student admission records using a singly linked list. Implement insertion at the beginning, at the end and at a given position, deletion of a node, searching for a record, and traversal.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the list contents before and after each operation and compare the linked list implementation with an array implementation.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">public class Exp5 {
+static class Node {
+int roll; String name; Node next;
+Node(int r, String n) { roll = r; name = n; }
+}
+static Node head;
+static void addFirst(int r, String n) { Node x = new Node(r, n); x.next = head; head = x; }
+static void addLast(int r, String n) {
+Node x = new Node(r, n);
+if (head == null) { head = x; return; }
+Node t = head;
+while (t.next != null) t = t.next;
+t.next = x;
+}
+static void addAt(int p, int r, String n) {
+if (p == 0) { addFirst(r, n); return; }
+Node t = head;
+for (int i = 0; i &lt; p - 1 &amp;&amp; t != null; i++) t = t.next;
+if (t == null) return;
+Node x = new Node(r, n);
+x.next = t.next; t.next = x;
+}
+static void delete(int r) {
+if (head == null) return;
+if (head.roll == r) { head = head.next; return; }
+Node t = head;
+while (t.next != null &amp;&amp; t.next.roll != r) t = t.next;
+if (t.next != null) t.next = t.next.next;
+}
+static boolean search(int r) {
+for (Node t = head; t != null; t = t.next) if (t.roll == r) return true;
+return false;
+}
+static void show() {
+for (Node t = head; t != null; t = t.next) System.out.print(t.roll + &quot;:&quot; + t.name + &quot; -&gt; &quot;);
+System.out.println(&quot;null&quot;);
+}
+public static void main(String[] args) {
+addFirst(2, &quot;Amit&quot;); show();
+addLast(4, &quot;Neha&quot;); show();
+addFirst(1, &quot;Ravi&quot;); show();
+addAt(2, 3, &quot;Pooja&quot;); show();
+delete(2); show();
+System.out.println(&quot;Search 4: &quot; + search(4) + &quot;, Search 9: &quot; + search(9));
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">2:Amit -&gt; null
+2:Amit -&gt; 4:Neha -&gt; null
+1:Ravi -&gt; 2:Amit -&gt; 4:Neha -&gt; null
+1:Ravi -&gt; 2:Amit -&gt; 3:Pooja -&gt; 4:Neha -&gt; null
+1:Ravi -&gt; 3:Pooja -&gt; 4:Neha -&gt; null
+Search 4: true, Search 9: false</pre>
+<h3>Analysis</h3><p class="hl ana">Linked list: dynamic size, O(1) insertion at head, no shifting; but no random access (O(n)) and extra memory for next pointer. Array: fixed size, O(1) access.</p>
+</section><section class="card" id="e6">
+<h2>Experiment 6</h2>
+<h3>Aim</h3><p class="hl">Implement Doubly Linked List operations.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to simulate a music playlist using a doubly linked list. Implement insertion and deletion of songs and enable both forward and backward traversal of the playlist.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the playlist in both directions and discuss the navigation advantages of a doubly linked list over a singly linked list, including the extra memory cost of the previous pointer.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">public class Exp6 {
+static class Node {
+String song; Node prev, next;
+Node(String s) { song = s; }
+}
+static Node head, tail;
+static void add(String s) {
+Node x = new Node(s);
+if (head == null) head = tail = x;
+else { tail.next = x; x.prev = tail; tail = x; }
+}
+static void delete(String s) {
+for (Node t = head; t != null; t = t.next)
+if (t.song.equals(s)) {
+if (t.prev != null) t.prev.next = t.next; else head = t.next;
+if (t.next != null) t.next.prev = t.prev; else tail = t.prev;
+return;
+}
+System.out.println(s + &quot; not found&quot;);
+}
+static void show() {
+System.out.print(&quot;Forward : &quot;);
+for (Node t = head; t != null; t = t.next) System.out.print(t.song + &quot; &lt;-&gt; &quot;);
+System.out.print(&quot;\nBackward: &quot;);
+for (Node t = tail; t != null; t = t.prev) System.out.print(t.song + &quot; &lt;-&gt; &quot;);
+System.out.println();
+}
+public static void main(String[] args) {
+add(&quot;Song A&quot;); add(&quot;Song B&quot;); add(&quot;Song C&quot;); add(&quot;Song D&quot;);
+show();
+delete(&quot;Song B&quot;);
+System.out.println(&quot;After deleting Song B:&quot;);
+show();
+delete(&quot;Song Z&quot;);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Forward : Song A &lt;-&gt; Song B &lt;-&gt; Song C &lt;-&gt; Song D &lt;-&gt;
+Backward: Song D &lt;-&gt; Song C &lt;-&gt; Song B &lt;-&gt; Song A &lt;-&gt;
+After deleting Song B:
+Forward : Song A &lt;-&gt; Song C &lt;-&gt; Song D &lt;-&gt;
+Backward: Song D &lt;-&gt; Song C &lt;-&gt; Song A &lt;-&gt;
+Song Z not found</pre>
+<h3>Analysis</h3><p class="hl ana">Doubly list allows backward traversal and easy deletion of a known node; cost = one extra &#x27;prev&#x27; pointer per node.</p>
+</section><section class="card" id="e7">
+<h2>Experiment 7</h2>
+<h3>Aim</h3><p class="hl">Construct a Binary Tree and determine its basic properties.</p>
+<h3>Part A (Question)</h3><p class="hl">Develop a Java program to represent an organization hierarchy using a Binary Tree. Create the tree using node objects with left and right children, and implement methods to compute the height of the tree, the total number of nodes and the number of leaf nodes.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the tree level by level along with its height, node count and leaf count, and discuss how a binary tree represents hierarchical data.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp7 {
+static class Node {
+String name; Node left, right;
+Node(String n) { name = n; }
+}
+static int height(Node r) { return r == null ? 0 : 1 + Math.max(height(r.left), height(r.right)); }
+static int count(Node r) { return r == null ? 0 : 1 + count(r.left) + count(r.right); }
+static int leaves(Node r) {
+if (r == null) return 0;
+if (r.left == null &amp;&amp; r.right == null) return 1;
+return leaves(r.left) + leaves(r.right);
+}
+static void levelOrder(Node r) {
+Queue&lt;Node&gt; q = new LinkedList&lt;&gt;();
+q.add(r);
+int lvl = 0;
+while (!q.isEmpty()) {
+System.out.print(&quot;Level &quot; + lvl++ + &quot;: &quot;);
+for (int i = q.size(); i &gt; 0; i--) {
+Node t = q.remove();
+System.out.print(t.name + &quot; &quot;);
+if (t.left != null) q.add(t.left);
+if (t.right != null) q.add(t.right);
+}
+System.out.println();
+}
+}
+public static void main(String[] args) {
+Node root = new Node(&quot;CEO&quot;);
+root.left = new Node(&quot;CTO&quot;);
+root.right = new Node(&quot;CFO&quot;);
+root.left.left = new Node(&quot;Dev&quot;); root.left.right = new Node(&quot;QA&quot;);
+root.right.left = new Node(&quot;Accountant&quot;);
+levelOrder(root);
+System.out.println(&quot;Height = &quot; + height(root));
+System.out.println(&quot;Nodes = &quot; + count(root));
+System.out.println(&quot;Leaves = &quot; + leaves(root));
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Level 0: CEO
+Level 1: CTO CFO
+Level 2: Dev QA Accountant
+Height = 3
+Nodes = 6
+Leaves = 3</pre>
+<h3>Analysis</h3><p class="hl ana">Each node has at most 2 children, so hierarchy (CEO &gt; CTO/CFO &gt; staff) maps naturally. Height = longest root-to-leaf path (in nodes).</p>
+</section><section class="card" id="e8">
+<h2>Experiment 8</h2>
+<h3>Aim</h3><p class="hl">Implement Inorder traversal of a Binary Tree.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to perform Inorder (Left – Root – Right) traversal on a binary tree of student roll numbers using both recursive and iterative (stack-based) approaches.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the traversal sequence, trace the recursive calls, and explain why inorder traversal of a Binary Search Tree gives sorted output.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp8 {
+static class Node {
+int roll; Node left, right;
+Node(int r) { roll = r; }
+}
+static Node insert(Node r, int v) {
+if (r == null) return new Node(v);
+if (v &lt; r.roll) r.left = insert(r.left, v); else r.right = insert(r.right, v);
+return r;
+}
+static void inRec(Node r) {
+if (r == null) return;
+inRec(r.left);
+System.out.print(r.roll + &quot; &quot;);
+inRec(r.right);
+}
+static void inIter(Node r) {
+Stack&lt;Node&gt; s = new Stack&lt;&gt;();
+while (r != null || !s.isEmpty()) {
+while (r != null) { s.push(r); r = r.left; }
+r = s.pop();
+System.out.print(r.roll + &quot; &quot;);
+r = r.right;
+}
+}
+public static void main(String[] args) {
+Node root = null;
+for (int v : new int[]{50, 30, 70, 20, 40, 60, 80}) root = insert(root, v);
+System.out.print(&quot;Recursive Inorder: &quot;); inRec(root);
+System.out.print(&quot;\nIterative Inorder: &quot;); inIter(root);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Recursive Inorder: 20 30 40 50 60 70 80
+Iterative Inorder: 20 30 40 50 60 70 80</pre>
+<h3>Analysis</h3><p class="hl ana">In a BST, left &lt; root &lt; right, so Left-Root-Right visits keys in ascending order. Time O(n); recursion stack O(h).</p>
+</section><section class="card" id="e9">
+<h2>Experiment 9</h2>
+<h3>Aim</h3><p class="hl">Implement Preorder traversal of a Binary Tree.</p>
+<h3>Part A (Question)</h3><p class="hl">Create a Java program to perform Preorder (Root – Left – Right) traversal on a binary tree that represents a folder structure of a file system, using both recursive and iterative approaches.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the traversal sequence and discuss the use of preorder traversal in copying a tree and in generating prefix expressions.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp9 {
+static class Node {
+String name; Node left, right;
+Node(String n) { name = n; }
+}
+static void preRec(Node r) {
+if (r == null) return;
+System.out.print(r.name + &quot; &quot;);
+preRec(r.left);
+preRec(r.right);
+}
+static void preIter(Node r) {
+Stack&lt;Node&gt; s = new Stack&lt;&gt;();
+s.push(r);
+while (!s.isEmpty()) {
+Node t = s.pop();
+System.out.print(t.name + &quot; &quot;);
+if (t.right != null) s.push(t.right);
+// right first, so left pops first
+if (t.left != null) s.push(t.left);
+}
+}
+public static void main(String[] args) {
+Node root = new Node(&quot;C:&quot;);
+root.left = new Node(&quot;Docs&quot;);
+root.right = new Node(&quot;Music&quot;);
+root.left.left = new Node(&quot;Resume&quot;); root.left.right = new Node(&quot;Photos&quot;);
+root.right.left = new Node(&quot;Songs&quot;);
+System.out.print(&quot;Recursive Preorder: &quot;); preRec(root);
+System.out.print(&quot;\nIterative Preorder: &quot;); preIter(root);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Recursive Preorder: C: Docs Resume Photos Music Songs
+Iterative Preorder: C: Docs Resume Photos Music Songs</pre>
+<h3>Analysis</h3><p class="hl ana">Preorder is used to copy/clone a tree and to get prefix expressions (operator before operands). Time O(n).</p>
+</section><section class="card" id="e10">
+<h2>Experiment 10</h2>
+<h3>Aim</h3><p class="hl">Implement Postorder traversal of a Binary Tree.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to perform Postorder (Left – Right – Root) traversal on an expression tree and use it to evaluate the expression, or to calculate the total size of a folder by processing its sub-folders first.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the traversal sequence and explain why child nodes are processed before the parent, with applications in tree deletion and postfix expressions.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">public class Exp10 {
+static class Node {
+String v; Node left, right;
+Node(String v) { this.v = v; }
+Node(String v, Node l, Node r) { this.v = v; left = l; right = r; }
+}
+static int post(Node r) {
+if (r == null) return 0;
+int a = post(r.left), b = post(r.right);
+// children first
+if (r.left == null &amp;&amp; r.right == null) {
+System.out.print(r.v + &quot; &quot;);
+return Integer.parseInt(r.v);
+}
+System.out.print(r.v + &quot; &quot;);
+switch (r.v) {
+case &quot;+&quot;: return a + b;
+case &quot;-&quot;: return a - b;
+case &quot;*&quot;: return a * b;
+default : return a / b;
+}
+}
+public static void main(String[] args) {
+// (2 + 3) * (8 - 4)
+Node root = new Node(&quot;*&quot;,
+new Node(&quot;+&quot;, new Node(&quot;2&quot;), new Node(&quot;3&quot;)),
+new Node(&quot;-&quot;, new Node(&quot;8&quot;), new Node(&quot;4&quot;)));
+System.out.print(&quot;Postorder: &quot;);
+int res = post(root);
+System.out.println(&quot;\nResult = &quot; + res);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Postorder: 2 3 + 8 4 - *
+Result = 20</pre>
+<h3>Analysis</h3><p class="hl ana">Children must be done before parent because the parent&#x27;s value depends on them (expression evaluation, folder size, tree deletion). Gives postfix expression.</p>
+</section><section class="card" id="e11">
+<h2>Experiment 11</h2>
+<h3>Aim</h3><p class="hl">Implement Breadth-First Search (BFS) on a graph using an adjacency list.</p>
+<h3>Part A (Question)</h3><p class="hl">Create a Java program to represent a metro rail network as a graph using an adjacency list and perform BFS from a given source station using a Queue.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the order of visited stations and their level from the source, and discuss the usefulness of BFS in finding shortest paths in unweighted graphs.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp11 {
+public static void main(String[] args) {
+String[] st = {&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;, &quot;F&quot;};
+int[][] e = {{0,1},{0,2},{1,3},{2,3},{2,4},{3,5},{4,5}};
+List&lt;List&lt;Integer&gt;&gt; g = new ArrayList&lt;&gt;();
+for (int i = 0; i &lt; st.length; i++) g.add(new ArrayList&lt;&gt;());
+for (int[] x : e) { g.get(x[0]).add(x[1]); g.get(x[1]).add(x[0]); }
+int[] lvl = new int[st.length];
+Arrays.fill(lvl, -1);
+Queue&lt;Integer&gt; q = new LinkedList&lt;&gt;();
+q.add(0); lvl[0] = 0;
+while (!q.isEmpty()) {
+int u = q.remove();
+System.out.println(&quot;Visited &quot; + st[u] + &quot; (level &quot; + lvl[u] + &quot;)&quot;);
+for (int v : g.get(u))
+if (lvl[v] == -1) { lvl[v] = lvl[u] + 1; q.add(v); }
+}
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Visited A (level 0)
+Visited B (level 1)
+Visited C (level 1)
+Visited D (level 2)
+Visited E (level 2)
+Visited F (level 3)</pre>
+<h3>Analysis</h3><p class="hl ana">BFS visits level by level using a Queue, so the first time a node is reached is via the fewest edges (shortest path in unweighted graph). Time O(V+E).</p>
+</section><section class="card" id="e12">
+<h2>Experiment 12</h2>
+<h3>Aim</h3><p class="hl">Implement Depth-First Search (DFS) on a graph using an adjacency list.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to represent a social network as a graph using an adjacency list and perform DFS (recursive and stack-based) to find all users connected to a given user.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the DFS traversal order, compare it with the BFS order of the same graph, and explain the behavior of DFS in deep exploration.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp12 {
+static List&lt;List&lt;Integer&gt;&gt; g = new ArrayList&lt;&gt;();
+static String[] u = {&quot;Ann&quot;, &quot;Bob&quot;, &quot;Cat&quot;, &quot;Dan&quot;, &quot;Eve&quot;, &quot;Fay&quot;};
+static void dfs(int x, boolean[] vis) {
+vis[x] = true;
+System.out.print(u[x] + &quot; &quot;);
+for (int v : g.get(x)) if (!vis[v]) dfs(v, vis);
+}
+static void dfsStack(int s) {
+boolean[] vis = new boolean[u.length];
+Stack&lt;Integer&gt; st = new Stack&lt;&gt;();
+st.push(s);
+while (!st.isEmpty()) {
+int x = st.pop();
+if (vis[x]) continue;
+vis[x] = true;
+System.out.print(u[x] + &quot; &quot;);
+List&lt;Integer&gt; l = g.get(x);
+for (int i = l.size() - 1; i &gt;= 0; i--) if (!vis[l.get(i)]) st.push(l.get(i));
+}
+}
+public static void main(String[] args) {
+for (int i = 0; i &lt; u.length; i++) g.add(new ArrayList&lt;&gt;());
+int[][] e = {{0,1},{0,2},{1,3},{2,3},{4,5}}; // Eve-Fay not connected to Ann
+for (int[] x : e) { g.get(x[0]).add(x[1]); g.get(x[1]).add(x[0]); }
+System.out.print(&quot;DFS recursive from Ann: &quot;); dfs(0, new boolean[u.length]);
+System.out.print(&quot;\nDFS stack-based from Ann: &quot;); dfsStack(0);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">DFS recursive from Ann: Ann Bob Dan Cat
+DFS stack-based from Ann: Ann Bob Dan Cat</pre>
+<h3>Analysis</h3><p class="hl ana">DFS goes as deep as possible before backtracking (uses recursion/stack); BFS goes level by level. Time O(V+E).</p>
+</section><section class="card" id="e13">
+<h2>Experiment 13</h2>
+<h3>Aim</h3><p class="hl">Analyze and implement Selection Sort.</p>
+<h3>Part A (Question)</h3><p class="hl">Develop a Java program to sort student marks using Selection Sort and display the array after every pass along with the element swapping.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the sorted list, the total number of comparisons and swaps, and analyze the time complexity for best, average and worst cases.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp13 {
+public static void main(String[] args) {
+int[] a = {64, 25, 12, 22, 11};
+int cmp = 0, swp = 0;
+for (int i = 0; i &lt; a.length - 1; i++) {
+int min = i;
+for (int j = i + 1; j &lt; a.length; j++) {
+cmp++;
+if (a[j] &lt; a[min]) min = j;
+}
+if (min != i) {
+int t = a[i]; a[i] = a[min]; a[min] = t; swp++;
+System.out.println(&quot;Pass &quot; + (i + 1) + &quot; (swap &quot; + a[min] + &quot;,&quot; + a[i] + &quot;): &quot; + Arrays.toString(a));
+} else System.out.println(&quot;Pass &quot; + (i + 1) + &quot; (no swap): &quot; + Arrays.toString(a));
+}
+System.out.println(&quot;Sorted: &quot; + Arrays.toString(a));
+System.out.println(&quot;Comparisons = &quot; + cmp + &quot;, Swaps = &quot; + swp);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Pass 1 (swap 64,11): [11, 25, 12, 22, 64]
+Pass 2 (swap 25,12): [11, 12, 25, 22, 64]
+Pass 3 (swap 25,22): [11, 12, 22, 25, 64]
+Pass 4 (no swap): [11, 12, 22, 25, 64]
+Sorted: [11, 12, 22, 25, 64]
+Comparisons = 10, Swaps = 3</pre>
+<h3>Analysis</h3><p class="hl ana">Time: Best/Average/Worst = O(n^2) (always n(n-1)/2 comparisons). Swaps at most n-1. Not stable, in-place.</p>
+</section><section class="card" id="e14">
+<h2>Experiment 14</h2>
+<h3>Aim</h3><p class="hl">Analyze and implement Insertion Sort.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to sort employee salaries using Insertion Sort and display each insertion step.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the final sorted array, compare the number of shifts for sorted, reverse-sorted and random inputs, and discuss the stability of the algorithm.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp14 {
+static int sort(int[] a, boolean print) {
+int shifts = 0;
+for (int i = 1; i &lt; a.length; i++) {
+int key = a[i], j = i - 1;
+while (j &gt;= 0 &amp;&amp; a[j] &gt; key) { a[j + 1] = a[j]; j--; shifts++; }
+a[j + 1] = key;
+if (print) System.out.println(&quot;Insert &quot; + key + &quot;: &quot; + Arrays.toString(a));
+}
+return shifts;
+}
+public static void main(String[] args) {
+int[] s = {30000, 25000, 40000, 20000, 35000};
+sort(s, true);
+System.out.println(&quot;Sorted: &quot; + Arrays.toString(s));
+System.out.println(&quot;Shifts (sorted) : &quot; + sort(new int[]{1, 2, 3, 4, 5}, false));
+System.out.println(&quot;Shifts (reverse) : &quot; + sort(new int[]{5, 4, 3, 2, 1}, false));
+System.out.println(&quot;Shifts (random) : &quot; + sort(new int[]{3, 1, 5, 2, 4}, false));
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Insert 25000: [25000, 30000, 40000, 20000, 35000]
+Insert 40000: [25000, 30000, 40000, 20000, 35000]
+Insert 20000: [20000, 25000, 30000, 40000, 35000]
+Insert 35000: [20000, 25000, 30000, 35000, 40000]
+Sorted: [20000, 25000, 30000, 35000, 40000]
+Shifts (sorted) : 0
+Shifts (reverse) : 10
+Shifts (random) : 4</pre>
+<h3>Analysis</h3><p class="hl ana">Best O(n) (already sorted, 0 shifts), Average/Worst O(n^2) (reverse sorted). Stable and in-place.</p>
+</section><section class="card" id="e15">
+<h2>Experiment 15</h2>
+<h3>Aim</h3><p class="hl">Analyze and implement Merge Sort using the Divide and Conquer approach.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to sort product prices entered by the user using Merge Sort. Show the recursive division of the array and the merging of the sorted sub-arrays.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the sorted output along with the divide and merge steps, and analyze the time complexity and the extra space requirement.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp15 {
+static void mergeSort(int[] a, int l, int r) {
+if (l &gt;= r) return;
+int m = (l + r) / 2;
+System.out.println(&quot;Divide: &quot; + Arrays.toString(Arrays.copyOfRange(a, l, r + 1)));
+mergeSort(a, l, m);
+mergeSort(a, m + 1, r);
+int[] t = new int[r - l + 1];
+int i = l, j = m + 1, k = 0;
+while (i &lt;= m &amp;&amp; j &lt;= r) t[k++] = a[i] &lt;= a[j] ? a[i++] : a[j++];
+while (i &lt;= m) t[k++] = a[i++];
+while (j &lt;= r) t[k++] = a[j++];
+System.arraycopy(t, 0, a, l, t.length);
+System.out.println(&quot;Merge : &quot; + Arrays.toString(t));
+}
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.print(&quot;How many prices? &quot;);
+int n = sc.nextInt();
+int[] a = new int[n];
+System.out.println(&quot;Enter prices:&quot;);
+for (int i = 0; i &lt; n; i++) a[i] = sc.nextInt();
+mergeSort(a, 0, n - 1);
+System.out.println(&quot;Sorted: &quot; + Arrays.toString(a));
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">How many prices? 6
+Enter prices:
+(input: 40 10 30 20 60 50)
+Divide: [40, 10, 30, 20, 60, 50]
+Divide: [40, 10, 30]
+Divide: [40, 10]
+Merge : [10, 40]
+Merge : [10, 30, 40]
+Divide: [20, 60, 50]
+Divide: [20, 60]
+Merge : [20, 60]
+Merge : [20, 50, 60]
+Merge : [10, 20, 30, 40, 50, 60]
+Sorted: [10, 20, 30, 40, 50, 60]</pre>
+<h3>Analysis</h3><p class="hl ana">Time O(n log n) in all cases. Extra space O(n) for the temporary array. Stable.</p>
+</section><section class="card" id="e16">
+<h2>Experiment 16</h2>
+<h3>Aim</h3><p class="hl">Analyze and implement Quick Sort.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to apply Quick Sort on randomly generated integer arrays of different sizes and measure the execution time.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the partitioning at each step, compare the runtime for different input sizes, and discuss the effect of pivot selection on performance.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp16 {
+static int partition(int[] a, int lo, int hi, boolean print) {
+int p = a[hi], i = lo - 1;
+// last element as pivot
+for (int j = lo; j &lt; hi; j++)
+if (a[j] &lt; p) { i++; int t = a[i]; a[i] = a[j]; a[j] = t; }
+int t = a[i + 1]; a[i + 1] = a[hi]; a[hi] = t;
+if (print) System.out.println(&quot;Pivot &quot; + p + &quot;: &quot; + Arrays.toString(a));
+return i + 1;
+}
+static void quick(int[] a, int lo, int hi, boolean print) {
+if (lo &lt; hi) {
+int p = partition(a, lo, hi, print);
+quick(a, lo, p - 1, print);
+quick(a, p + 1, hi, print);
+}
+}
+public static void main(String[] args) {
+int[] d = {10, 7, 8, 9, 1, 5};
+quick(d, 0, d.length - 1, true);
+System.out.println(&quot;Sorted: &quot; + Arrays.toString(d));
+Random r = new Random();
+for (int n : new int[]{1000, 10000, 100000, 1000000}) {
+int[] a = r.ints(n, 0, 1000000).toArray();
+long s = System.nanoTime();
+quick(a, 0, n - 1, false);
+System.out.println(&quot;n = &quot; + n + &quot; -&gt; &quot; + (System.nanoTime() - s) / 1000 + &quot; microseconds&quot;);
+}
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Pivot 5: [1, 5, 8, 9, 10, 7]
+Pivot 7: [1, 5, 7, 9, 10, 8]
+Pivot 8: [1, 5, 7, 8, 10, 9]
+Pivot 9: [1, 5, 7, 8, 9, 10]
+Sorted: [1, 5, 7, 8, 9, 10]
+n = 1000 -&gt; ~400 microseconds
+n = 10000 -&gt; ~800 microseconds
+n = 100000 -&gt; ~26000 microseconds
+n = 1000000 -&gt; ~320000 microseconds
+(timings vary on every run/machine)</pre>
+<h3>Analysis</h3><p class="hl ana">Average O(n log n), worst O(n^2) when pivot is always min/max (e.g. sorted input). Random/median pivot avoids the worst case.</p>
+</section><section class="card" id="e17">
+<h2>Experiment 17</h2>
+<h3>Aim</h3><p class="hl">Implement Kruskal&#x27;s algorithm for Minimum Spanning Tree.</p>
+<h3>Part A (Question)</h3><p class="hl">Develop a Java program to connect office branches with the minimum total cable cost using Kruskal&#x27;s algorithm. Sort the edges by cost and use the Union-Find approach to avoid cycles.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the edges selected in the MST, the rejected edges, and the total cost, and justify the greedy selection principle.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp17 {
+static int[] p = new int[5];
+static int find(int x) { return p[x] == x ? x : (p[x] = find(p[x])); }
+public static void main(String[] args) {
+String[] b = {&quot;Delhi&quot;, &quot;Mumbai&quot;, &quot;Pune&quot;, &quot;Goa&quot;, &quot;Jaipur&quot;};
+int[][] e = {{0,1,7},{0,2,5},{1,2,8},{1,3,9},{2,3,7},{2,4,5},{3,4,15}}; // {u, v, cost}
+Arrays.sort(e, (x, y) -&gt; x[2] - y[2]);
+// sort edges by cost
+for (int i = 0; i &lt; 5; i++) p[i] = i;
+int total = 0;
+for (int[] x : e) {
+int a = find(x[0]), c = find(x[1]);
+String ed = b[x[0]] + &quot;-&quot; + b[x[1]] + &quot; (&quot; + x[2] + &quot;)&quot;;
+if (a != c) { p[a] = c; total += x[2]; System.out.println(&quot;Selected: &quot; + ed); }
+else System.out.println(&quot;Rejected (cycle): &quot; + ed);
+}
+System.out.println(&quot;Total MST cost = &quot; + total);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Selected: Delhi-Pune (5)
+Selected: Pune-Jaipur (5)
+Selected: Delhi-Mumbai (7)
+Selected: Pune-Goa (7)
+Rejected (cycle): Mumbai-Pune (8)
+Rejected (cycle): Mumbai-Goa (9)
+Rejected (cycle): Goa-Jaipur (15)
+Total MST cost = 24</pre>
+<h3>Analysis</h3><p class="hl ana">Greedy: always pick the cheapest edge that does not form a cycle. Time O(E log E) due to sorting. MST has V-1 edges.</p>
+</section><section class="card" id="e18">
+<h2>Experiment 18</h2>
+<h3>Aim</h3><p class="hl">Solve the 0/1 Knapsack problem using Dynamic Programming.</p>
+<h3>Part A (Question)</h3><p class="hl">Implement a Java program to select cargo items to load on a truck such that the total profit is maximized within the given weight capacity, using a dynamic programming table.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the DP table, the items selected and the maximum profit achieved, and compare the approach with brute force in terms of time complexity.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">import java.util.*;
+public class Exp18 {
+public static void main(String[] args) {
+int[] w = {2, 3, 4, 5}, pr = {3, 4, 5, 6};
+int n = 4, W = 8;
+int[][] dp = new int[n + 1][W + 1];
+for (int i = 1; i &lt;= n; i++)
+for (int c = 0; c &lt;= W; c++) {
+dp[i][c] = dp[i - 1][c];
+if (w[i - 1] &lt;= c)
+dp[i][c] = Math.max(dp[i][c], pr[i - 1] + dp[i - 1][c - w[i - 1]]);
+}
+for (int[] r : dp) System.out.println(Arrays.toString(r));
+System.out.println(&quot;Max profit = &quot; + dp[n][W]);
+System.out.print(&quot;Items selected: &quot;);
+for (int i = n, c = W; i &gt; 0; i--)
+if (dp[i][c] != dp[i - 1][c]) { System.out.print(&quot;Item&quot; + i + &quot;(w=&quot; + w[i - 1] + &quot;) &quot;); c -= w[i - 1]; }
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">[0, 0, 0, 0, 0, 0, 0, 0, 0]
+[0, 0, 3, 3, 3, 3, 3, 3, 3]
+[0, 0, 3, 4, 4, 7, 7, 7, 7]
+[0, 0, 3, 4, 5, 7, 8, 9, 9]
+[0, 0, 3, 4, 5, 7, 8, 9, 10]
+Max profit = 10
+Items selected: Item4(w=5) Item2(w=3)</pre>
+<h3>Analysis</h3><p class="hl ana">DP time/space O(n*W) vs brute force O(2^n). Answer is in dp[n][W]; backtrack the table to find chosen items.</p>
+</section><section class="card" id="e19">
+<h2>Experiment 19</h2>
+<h3>Aim</h3><p class="hl">Solve the 8-Queens problem using Backtracking.</p>
+<h3>Part A (Question)</h3><p class="hl">Implement the 8-Queens problem in Java using backtracking and display the valid placements of the queens on the chessboard.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display the valid configurations and their total count, and discuss the recursion depth and how pruning reduces the search space.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">public class Exp19 {
+static int N = 8, count = 0;
+static int[] col = new int[N];
+// col[row] = column of queen
+static boolean safe(int r, int c) {
+for (int i = 0; i &lt; r; i++)
+if (col[i] == c || Math.abs(col[i] - c) == r - i) return false;
+// column / diagonal
+return true;
+}
+static void solve(int r) {
+if (r == N) {
+if (++count &lt;= 2) {
+// print only first 2 boards
+System.out.println(&quot;Solution &quot; + count + &quot;:&quot;);
+for (int i = 0; i &lt; N; i++) {
+for (int j = 0; j &lt; N; j++) System.out.print(col[i] == j ? &quot;Q &quot; : &quot;. &quot;);
+System.out.println();
+}
+}
+return;
+}
+for (int c = 0; c &lt; N; c++)
+if (safe(r, c)) { col[r] = c; solve(r + 1); }
+// else: pruned
+}
+public static void main(String[] args) {
+solve(0);
+System.out.println(&quot;Total valid configurations = &quot; + count);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Solution 1:
+Q . . . . . . .
+. . . . Q . . .
+. . . . . . . Q
+. . . . . Q . .
+. . Q . . . . .
+. . . . . . Q .
+. Q . . . . . .
+. . . Q . . . .
+Solution 2:
+Q . . . . . . .
+. . . . . Q . .
+. . . . . . . Q
+. . Q . . . . .
+. . . . . . Q .
+. . . Q . . . .
+. Q . . . . . .
+. . . . Q . . .
+Total valid configurations = 92</pre>
+<h3>Analysis</h3><p class="hl ana">Depth of recursion = 8 (one queen per row). Pruning (safe check) cuts invalid branches early instead of trying 8^8 placements. Total = 92 solutions.</p>
+</section><section class="card" id="e20">
+<h2>Experiment 20</h2>
+<h3>Aim</h3><p class="hl">Analyze and implement the Rabin–Karp algorithm for string matching.</p>
+<h3>Part A (Question)</h3><p class="hl">Write a Java program to find all occurrences of a keyword in a given text using the Rabin–Karp algorithm and its rolling hash.</p>
+<h3>Part B (Output / Analysis)</h3><p class="hl">Display all positions of the matches and the number of spurious hits, and analyze the time complexity for the average and worst cases.</p>
+<h3>Java Code <button class="cp">Copy</button></h3><pre class="hl">public class Exp20 {
+public static void main(String[] args) {
+String t = &quot;ababcabcabababd&quot;, p = &quot;ababd&quot;;
+int n = t.length(), m = p.length(), d = 256, q = 101, h = 1, hp = 0, ht = 0, spur = 0;
+for (int i = 0; i &lt; m - 1; i++) h = (h * d) % q;
+for (int i = 0; i &lt; m; i++) {
+hp = (d * hp + p.charAt(i)) % q;
+ht = (d * ht + t.charAt(i)) % q;
+}
+for (int i = 0; i &lt;= n - m; i++) {
+if (hp == ht) {
+if (t.substring(i, i + m).equals(p)) System.out.println(&quot;Match at index &quot; + i);
+else spur++;
+// hash equal but text different
+}
+if (i &lt; n - m) ht = ((d * (ht - t.charAt(i) * h) + t.charAt(i + m)) % q + q) % q;
+}
+System.out.println(&quot;Spurious hits = &quot; + spur);
+}
+}</pre>
+<h3>Output</h3><pre class="hl out">Match at index 10
+Spurious hits = 1</pre>
+<h3>Analysis</h3><p class="hl ana">Average/Best O(n+m); Worst O(n*m) when many spurious hits/hash collisions. Spurious hit = same hash but different string.</p>
+</section><div id="none">No experiment matches all your keywords.</div></main>
+<script>
+const cards=[...document.querySelectorAll('.card')],hls=[...document.querySelectorAll('.hl')];
+hls.forEach(h=>h.dataset.t=h.textContent);
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const rx=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+function run(){
+ const terms=document.getElementById('q').value.toLowerCase().split(/\s+/).filter(Boolean);
+ let shown=0;
+ cards.forEach((c,i)=>{
+  const txt=c.textContent.toLowerCase(),ok=terms.every(t=>txt.includes(t));
+  c.style.display=ok?'':'none';
+  document.querySelectorAll('#toc a')[i].classList.toggle('off',!ok);
+  if(ok)shown++;
+ });
+ hls.forEach(h=>{
+  let s=esc(h.dataset.t);
+  if(terms.length&&h.closest('.card').style.display!=='none'){
+   const r=new RegExp('('+terms.map(t=>rx(esc(t))).join('|')+')','gi');
+   s=s.replace(r,'<mark>$1</mark>');
+  }
+  h.innerHTML=s;
+ });
+ document.getElementById('none').style.display=shown?'none':'block';
+ document.getElementById('info').textContent=terms.length?shown+' of '+cards.length+' experiments match':cards.length+' experiments';
+}
+document.getElementById('q').addEventListener('input',run);run();
+document.querySelectorAll('.cp').forEach(b=>b.onclick=()=>{
+ const code=b.closest('.card').querySelector('pre').dataset.t;
+ navigator.clipboard.writeText(code).then(()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1200)}).catch(()=>{});
+});
+</script></body></html>
